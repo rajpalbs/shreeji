@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="head :: head"></head>
+	<body>
+		<div class="container ">
+			<th:block th:include="menu :: topmenubar"></th:block>
+			<br/>
+			<div>
+				<h5>Vehicle Details</h5>
+			</div>
+			<hr/>
+			<form autocomplete="off" class="form-inline row center_form" th:action="@{/vehicle/create}" th:object="${vehicle}" method="post" class="form-horizontal" role="form">
+				<div class="row"">
+					<div class="col-md-4"></div>
+					<div class="col-md-5">
+						<div class="form-group">
+							<div class="input-group form-group">
+								<label for="address">Vehicle Generation : </label> &nbsp;&nbsp;&nbsp;
+								<label><input name="vehicleGenerationType" value="NEW" checked="" type="radio" checked>New</label>
+								&nbsp;&nbsp;
+								<label><input name="vehicleGenerationType" value="USED" type="radio">Used</label>
+								&nbsp;&nbsp;
+								<label><input name="vehicleGenerationType" value="RC_LIMIT" type="radio">RC Liit</label>								
+							</div>
+						</div>						
+						<div class="form-group">
+							<label for="address">Vehicle Type : </label> &nbsp;&nbsp;&nbsp;
+							<select class="selectpicker" name="vehicleType" data-live-search="true">
+								<option value="CAR" >Car</option>
+								<option value="TRACTOR">Tractor</option>
+								<option value="CV">CV</option>
+								<option value="AUTO">AUTO</option>
+							</select>
+						</div>						
+						<div class="form-group">
+							<div class="input-group form-group">
+								<label th:if="${#fields.hasErrors('number')}" th:errors="*{number}"class="validation-message"></label>
+								<span class="input-group-addon">Vehicle number</span>	
+								<input type="text" th:field="*{number}" placeholder="GJ00XX0000" class="form-control" required/> 
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="input-group form-group">
+								<label th:if="${#fields.hasErrors('modelName')}" th:errors="*{modelName}"class="validation-message"></label>
+								<span class="input-group-addon">Model name</span>	
+								<input type="text" th:field="*{modelName}" placeholder="Maruti Suzuki Swift LDi" class="form-control" required/> 
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="input-group form-group">
+								<label th:if="${#fields.hasErrors('engineNumber')}" th:errors="*{engineNumber}"class="validation-message"></label>
+								<span class="input-group-addon">Engine Number</span>	
+								<input type="text" th:field="*{engineNumber}" class="form-control" required/> 
+							</div>
+						</div>												
+						<div class="form-group">
+							<div class="input-group form-group">
+								<label th:if="${#fields.hasErrors('chassisNumber')}" th:errors="*{chassisNumber}"class="validation-message"></label>
+								<span class="input-group-addon">Chassis Number</span>	
+								<input type="text" th:field="*{chassisNumber}" class="form-control" required/> 
+							</div>
+						</div>												
+						<div class="form-group">
+							<div class="input-group form-group">
+								<label th:if="${#fields.hasErrors('mfgYear')}" th:errors="*{mfgYear}"class="validation-message"></label>
+								<span class="input-group-addon">Manufacturing Year</span>	
+								<input type="text" th:field="*{mfgYear}" class="form-control" required/> 
+							</div>
+						</div>	
+						<div class="row form-group">
+							<div class="input-group form-group">
+								<div class="col-sm-4">
+									<button type="submit" class="btn btn-success btn-lg btn-block">Save</button>
+								</div>
+								<div class="col-sm-4">
+									<button type="reset" class="btn btn-danger btn-lg btn-block">Reset</button>
+								</div>
+							</div>
+						</div>																													
+					</div>
+				</div>
+			</form>
+			<th:block th:include="tail :: bodytail"></th:block>
+		</div>
+	</body>
+</html>

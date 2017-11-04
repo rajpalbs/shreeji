@@ -1,0 +1,49 @@
+plugins {
+    id 'org.springframework.boot' version '1.5.7.RELEASE'
+}
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+sourceCompatibility = '1.8'
+
+war{
+	//webXml = file('src/main/webapp/web.xml')
+	baseName = 'srijeefinanace'
+    version =  '0.0.1'
+}
+
+task deployTomcat(dependsOn: war){
+	copy{
+		from "build/libs"
+		into "/opt/apache-tomcat-8.5.15/webapps"
+		include "*.war"
+	}
+}	
+
+repositories {
+	maven {
+		url("https://plugins.gradle.org/m2/")
+	}
+	mavenLocal()
+	mavenCentral()
+}
+
+dependencies {
+	// Find out where to use spring-boot-devtools and what is does
+	//compile("org.springframework.boot:spring-boot-devtools")
+	
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-security')
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('net.sourceforge.nekohtml:nekohtml:1.9.7')
+	compile('org.apache.poi:poi:3.17');
+	compile('org.apache.poi:poi-ooxml:3.17');
+	
+	runtime('mysql:mysql-connector-java')
+	
+	//THIS WILL NEED IN CASE YOU WANT TO RUN MAIN CLASS WHICH NEEDS SERVLET CONTAINER
+	//WE CAN SET ANY CONTAINER LIKE JETTY spring-boot-starter-jetty
+	providedRuntime ("org.springframework.boot:spring-boot-starter-tomcat") 		
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="head :: head"></head>
+	<body>
+		<div class="container ">
+			<th:block th:include="menu :: topmenubar"></th:block>
+			<br/>
+			<div>
+				<h5>Loan Details</h5>
+			</div>
+			<hr/>
+			<form autocomplete="off" class="form-inline row center_form" th:action="@{/loan/createinit}" th:object="${loan}" method="post" class="form-horizontal" role="form">
+				<div class="row">
+					<div class="input-group col-md-12">
+						<label for="Customer">Select Customer: </label> &nbsp;&nbsp;&nbsp;
+					</div>
+					<div class="form-group input-group col-md-12">
+						<select class="selectpicker col-md-12" id="customer" th:field="*{customer.id}" autofocus>
+		    				<option th:each="customer : ${customers}" th:text="${customer.name+ ' --> ' +customer.idProofType+ ' - ' +customer.idProofValue}" th:value="${customer.id}"/>
+		    			</select>
+		    		</div>
+		    	</div>
+		    	<div class="row">
+					<div class="input-group col-md-12">
+						<label for="vehicle">Select Vehicle: </label> &nbsp;&nbsp;&nbsp;
+					</div>
+					<div class="form-group input-group col-md-12">
+						<select class="selectpicker col-md-12" id="Vehicle" th:field="*{vehicle.id}">
+		    				<option th:each="vehicle : ${vehicles}" th:text="${vehicle.number+ ' --> ' +vehicle.vehicleType+ ' --> ' +vehicle.modelName}" th:value="${vehicle.id}"/>
+		    			</select>
+		    		</div>
+		    	</div>
+		    	<div class="row">
+		    		<!-- Left side section - Starts -->
+					<div class="col-md-6">
+						<div class="form-group">
+							<div class="row form-group col-md-12">
+								<!-- <label th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}" class="validation-message"></label> -->
+								<div class="input-group col-md-12">
+									<span class="input-group-addon">Loan Amount</span>
+									<input type="text" th:field="*{loanAmount}" class="form-control" required autofocus"/>
+								</div>
+							</div>
+							<div class="row form-group col-md-12">
+								<div class="input-group col-md-12">
+									<span class="input-group-addon">Advance Amount</span>
+									<input type="text" th:field="*{advanceAmount}" class="form-control" required autofocus"/>
+								</div>
+							</div>
+							<div class="row form-group col-md-12">
+								<div class="input-group col-md-12">
+									<span class="input-group-addon">File Charge Amount</span>
+									<input type="text" th:field="*{fileChargeAmount}" class="form-control" required autofocus"/>
+								</div>
+							</div>
+							<div class="row form-group col-md-12">
+								<div class="input-group col-md-12">
+									<span class="input-group-addon">Loan Insurance Amount</span>
+									<input type="text"  th:field="*{loanInsuranceAmount}" class="form-control" required autofocus"/>
+								</div>
+							</div>
+							<div class="row form-group col-md-12">
+								<div class="input-group col-md-12">
+									<span class="input-group-addon">EMI Amount</span>
+									<input type="text" th:field="*{emiAmount}" class="form-control" required autofocus"/>
+								</div>
+							</div>
+							<div class="row form-group col-md-12">
+								<div class="input-group col-md-12">
+									<label for="address">Tenure Type : </label>&nbsp;&nbsp;&nbsp;	
+									<select class="selectpicker" name="tenureType">
+										<option value="MONTHLY" >Monthly</option>
+										<option value="QUATERLY">Quaterly</option>
+										<option value="HALFYEARLY">Half Yerly</option>
+									</select>
+								</div>	
+							</div>
+							<div class="row form-group col-md-12">
+								<div class="input-group col-md-12">
+									<span class="input-group-addon">Tenure Count</span>
+									<input type="text" th:field="*{tenureCount}" class="form-control" required autofocus"/>
+								</div>
+							</div>
+							<div class="row form-group col-md-12">
+								<div class="col-sm-4">
+									<button type="submit" class="btn btn-success btn-lg btn-block">Save</button>
+								</div>
+								<div class="col-sm-4">
+									<button type="reset" class="btn btn-danger btn-lg btn-block">Reset</button>
+								</div>							
+							</div>
+						</div>
+		    		</div>
+		    		<!-- Right side section - Starts -->
+					<div class="col-md-6">
+		    		</div>
+		    	</div>
+			</form>
+			<th:block th:include="tail :: bodytail"></th:block>
+		</div>
+	</body>
+</html>
