@@ -11,7 +11,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "insurance")
-public class Insurance {
+@Deprecated
+public class OldInsurance {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,7 +24,7 @@ public class Insurance {
 
 	@OneToOne
 	@JoinColumn(name = "vehicle_id")
-	private Vehicle vehicle;
+	private OldVehicle vehicle;
 
 	public int getId() {
 		return id;
@@ -41,11 +42,11 @@ public class Insurance {
 		this.number = number;
 	}
 
-	public Vehicle getVehicle() {
+	public OldVehicle getVehicle() {
 		return vehicle;
 	}
 
-	public void setVehicle(Vehicle vehicle) {
+	public void setVehicle(OldVehicle vehicle) {
 		this.vehicle = vehicle;
 	}
 

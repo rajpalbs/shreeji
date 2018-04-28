@@ -1,0 +1,3 @@
+JWT --> Json web token
+Actuator --> How to Enable in spring boot
+OAuth --> For Authorization

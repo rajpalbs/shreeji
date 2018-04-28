@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="head :: head"></head>
+	<body>
+		<div class="container ">
+			<th:block th:include="menu :: topmenubar"></th:block>
+			<br/>
+			<div>
+				<h5>Vehicle Details</h5>
+			</div>	
+			<hr/>
+			<div th:if="${not #lists.isEmpty(vehicles)}">
+				<table class="table table-striped">
+					<tr>
+						<th>Id</th>
+						<th>Vehicle</th>
+					</tr>
+					
+					<tr th:each="currentVehicle : ${vehicles}">
+						<td th:text="${currentVehicle.id}"></td>
+						<td th:text="${currentVehicle.number}"></td>
+					</tr>
+				</table>
+			</div>
+			<th:block th:include="tail :: bodytail"></th:block>
+		</div>
+	</body>
+</html>

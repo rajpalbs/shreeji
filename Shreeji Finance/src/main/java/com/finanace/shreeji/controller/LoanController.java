@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.finanace.shreeji.model.Customer;
-import com.finanace.shreeji.model.Loan;
-import com.finanace.shreeji.model.Vehicle;
+import com.finanace.shreeji.model.OldCustomer;
+import com.finanace.shreeji.model.OldLoan;
+import com.finanace.shreeji.model.OldVehicle;
 import com.finanace.shreeji.service.CustomerService;
 import com.finanace.shreeji.service.LoanService;
 import com.finanace.shreeji.service.VehicleService;
@@ -35,21 +35,21 @@ public class LoanController {
 	public ModelAndView loanCreatePage() {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		List<Customer> allCustomer = customerService.listAll();
+		List<OldCustomer> allCustomer = customerService.listAll();
 		
 		modelAndView.addObject("customers", allCustomer);
-		List<Vehicle> allVehicles = vehicleService.listAll();
+		List<OldVehicle> allVehicles = vehicleService.listAll();
 		modelAndView.addObject("vehicles", allVehicles);
-		modelAndView.addObject("loan",new Loan());
+		modelAndView.addObject("loan",new OldLoan());
 		modelAndView.setViewName("loan/create");
 		return modelAndView;
 	}
 
 	@RequestMapping(value = { "/createinit"}, method = RequestMethod.POST)
-	public ModelAndView loanCreatePage(@Valid Loan loan) {
+	public ModelAndView loanCreatePage(@Valid OldLoan loan) {
 		ModelAndView modelAndView = new ModelAndView();
 		loanService.saveLoan(loan);
-		List<Loan> loans = loanService.listAll();
+		List<OldLoan> loans = loanService.listAll();
 		System.out.println(loans);
 		modelAndView.addObject("loans", loans);
 		modelAndView.setViewName("loan/listAllPendingLoan");

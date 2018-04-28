@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,7 +13,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "loan")
-public class Loan {
+@Deprecated
+public class OldLoan {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "loan_id")
@@ -44,11 +44,11 @@ public class Loan {
 
 	@OneToOne
 	@JoinColumn(name = "customer_id")
-	private Customer customer;
+	private OldCustomer customer;
 
 	@OneToOne
 	@JoinColumn(name = "vehicle_id")
-	private Vehicle vehicle;
+	private OldVehicle vehicle;
 
 	public int getId() {
 		return id;
@@ -114,19 +114,19 @@ public class Loan {
 		this.tenureCount = tenureCount;
 	}
 
-	public Customer getCustomer() {
+	public OldCustomer getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(Customer customer) {
+	public void setCustomer(OldCustomer customer) {
 		this.customer = customer;
 	}
 
-	public Vehicle getVehicle() {
+	public OldVehicle getVehicle() {
 		return vehicle;
 	}
 
-	public void setVehicle(Vehicle vehicle) {
+	public void setVehicle(OldVehicle vehicle) {
 		this.vehicle = vehicle;
 	}
 

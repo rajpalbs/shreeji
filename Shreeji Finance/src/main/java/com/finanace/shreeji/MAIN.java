@@ -7,13 +7,13 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 @SpringBootApplication 
 public class MAIN extends SpringBootServletInitializer {
-	
-	@Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(MAIN.class);
-    }
 
-    public static void main(String[] args) {
-        SpringApplication.run(MAIN.class, args);
-    }
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(MAIN.class);
+	}
+
+	public static void main(String[] args) {
+		SpringApplication.run(MAIN.class, args);
+	}
 }

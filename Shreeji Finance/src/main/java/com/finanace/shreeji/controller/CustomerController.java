@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.finanace.shreeji.model.Customer;
+import com.finanace.shreeji.model.OldCustomer;
 import com.finanace.shreeji.service.CustomerService;
 
 @Controller
@@ -22,7 +22,7 @@ public class CustomerController {
 
 	@RequestMapping(value = { "/create" }, method = RequestMethod.GET)
 	public ModelAndView customerCreatePage() {
-		Customer customer = new Customer();
+		OldCustomer customer = new OldCustomer();
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("customer", customer);
 		modelAndView.setViewName("customer/create");
@@ -30,10 +30,10 @@ public class CustomerController {
 	}
 
 	@RequestMapping(value = { "/create" }, method = RequestMethod.POST)
-	public ModelAndView customerCreatePage(@Valid Customer customer) {
+	public ModelAndView customerCreatePage(@Valid OldCustomer customer) {
 		System.out.println(customer);
 		customerService.SaveCustomer(customer);
-		List<Customer> allCustomer = customerService.listAll();
+		List<OldCustomer> allCustomer = customerService.listAll();
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("customers", allCustomer);
 		modelAndView.setViewName("customer/listAll");
@@ -42,7 +42,7 @@ public class CustomerController {
 	
 	@RequestMapping(value = { "/update" }, method = RequestMethod.GET)
 	public ModelAndView customerUpdatePage() {
-		Customer customer = new Customer();
+		OldCustomer customer = new OldCustomer();
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("customer", customer);
 		modelAndView.setViewName("customer/update");
@@ -50,16 +50,15 @@ public class CustomerController {
 	}
 
 	@RequestMapping(value = { "/update" }, method = RequestMethod.POST)
-	public ModelAndView customerUpdatePage(@Valid Customer customer) {
+	public ModelAndView customerUpdatePage(@Valid OldCustomer customer) {
 		customerService.SaveCustomer(customer);
-		List<Customer> allCustomer = customerService.listAll();
+		List<OldCustomer> allCustomer = customerService.listAll();
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("customers", allCustomer);
 		modelAndView.setViewName("customer/update");
 		return modelAndView;
 	}
 
-	
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
 	public ModelAndView customerSearchPage() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -70,7 +69,7 @@ public class CustomerController {
 	@RequestMapping(value = { "/search" }, method = RequestMethod.POST)
 	public ModelAndView customerSearchPage(String searchString) {
 		ModelAndView modelAndView = new ModelAndView();
-		List<Customer> allCustomer = customerService.listAll();
+		List<OldCustomer> allCustomer = customerService.listAll();
 		modelAndView.addObject("customers", allCustomer);
 		modelAndView.setViewName("customer/search");
 		return modelAndView;

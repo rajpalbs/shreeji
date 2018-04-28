@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.finanace.shreeji.model.Loan;
+import com.finanace.shreeji.model.OldLoan;
 import com.finanace.shreeji.service.LoanService;
 
 @Controller
@@ -40,7 +40,7 @@ public class ReportController {
 
 		XSSFWorkbook workbook = new XSSFWorkbook();
 		XSSFSheet sheet = workbook.createSheet("Loan Report");
-		List<Loan> loans = loanService.listAll();
+		List<OldLoan> loans = loanService.listAll();
 		int rowNum = 0;
 		sheet.createRow(rowNum++);
 		Row headerRow = sheet.createRow(rowNum++);
@@ -59,7 +59,7 @@ public class ReportController {
 		c1 = headerRow.createCell(6);
 		c1.setCellValue("Total Tenure");
 		sheet.createRow(rowNum++);
-		for (Loan loan : loans) {
+		for (OldLoan loan : loans) {
 			Row row = sheet.createRow(rowNum++);
 			Cell cell = row.createCell(0);
 			cell.setCellValue(loan.getCustomer().getName());

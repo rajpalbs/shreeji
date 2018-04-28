@@ -11,7 +11,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "vehicle")
-public class Vehicle {
+@Deprecated
+public class OldVehicle {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

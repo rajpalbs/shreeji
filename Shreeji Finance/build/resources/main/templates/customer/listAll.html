@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="head :: head"></head>
+	<body>
+		<div class="container ">
+			<th:block th:include="menu :: topmenubar"></th:block>
+			<br/>
+			<div>
+				<h5>Customer Details</h5>
+			</div>	
+			<hr/>
+			<div class="row form-group col-md-12" th:if="${not #lists.isEmpty(customers)}">
+				<table class="table table-striped">
+					<tr>
+						<th>Id</th>
+						<th>Name</th>
+					</tr>
+					
+					<tr th:each="currentCustomer : ${customers}">
+						<td th:text="${currentCustomer.id}"></td>
+						<td th:text="${currentCustomer.name}"></td>
+					</tr>
+				</table>
+			</div>			
+			<th:block th:include="tail :: bodytail"></th:block>
+		</div>
+	</body>
+</html>

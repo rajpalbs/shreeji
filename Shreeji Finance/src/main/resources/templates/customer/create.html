@@ -18,14 +18,19 @@
 								<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="validation-message"></label>
 								<div class="input-group col-md-12">
 									<span class="input-group-addon">Applicant Name</span>
-									<input type="text" th:field="*{name}" placeholder="Surname Name Middleanme" class="form-control text-uppercase" required autofocus pattern="[A-Za-z\s]+"/>
+									<input type="text" th:field="*{name}" placeholder="Surname" class="form-control text-uppercase" required autofocus pattern="[A-Za-z\s]+"/>
+									<input type="text" placeholder="name" class="form-control text-uppercase" required pattern="[A-Za-z\s]+"/>
+									<input type="text" placeholder="middle name" class="form-control text-uppercase" required pattern="[A-Za-z\s]+"/>
+									
 								</div>
 							</div>
 							<div class="row form-group col-md-12">
 								<label th:if="${#fields.hasErrors('coApplicantName')}" th:errors="*{coApplicantName}" class="validation-message"></label>
 								<div class="input-group col-md-12">
 									<span class="input-group-addon">Co-Applicant Name</span>
-									<input type="text" th:field="*{coApplicantName}" placeholder="Surname Name Middleanme" class="form-control text-uppercase" pattern="[A-Za-z\s]+"/>
+									<input type="text" th:field="*{coApplicantName}" placeholder="Surname" class="form-control text-uppercase" pattern="[A-Za-z\s]+"/>
+									<input type="text" placeholder="Name" class="form-control text-uppercase" pattern="[A-Za-z\s]+"/>
+									<input type="text" placeholder="middle name" class="form-control text-uppercase" pattern="[A-Za-z\s]+"/>
 								</div>
 							</div>
 							<div class="row form-group col-md-12">

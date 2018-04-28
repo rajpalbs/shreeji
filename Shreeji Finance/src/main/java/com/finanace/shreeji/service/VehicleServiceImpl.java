@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.finanace.shreeji.model.Vehicle;
+import com.finanace.shreeji.model.OldVehicle;
 import com.finanace.shreeji.repository.VehicleRepository;
 
 @Service("vehicleService")
@@ -15,12 +15,12 @@ public class VehicleServiceImpl implements VehicleService {
 	private VehicleRepository vehicleRepository; 
 	
 	@Override
-	public void saveVehicle(Vehicle vehicle) {
+	public void saveVehicle(OldVehicle vehicle) {
 		vehicleRepository.save(vehicle);
 	}	
 
 	@Override
-	public List<Vehicle> listAll() {
+	public List<OldVehicle> listAll() {
 		return vehicleRepository.findAll();
 	}
 

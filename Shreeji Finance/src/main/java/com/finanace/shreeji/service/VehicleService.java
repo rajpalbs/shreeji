@@ -2,9 +2,9 @@ package com.finanace.shreeji.service;
 
 import java.util.List;
 
-import com.finanace.shreeji.model.Vehicle;
+import com.finanace.shreeji.model.OldVehicle;
 
 public interface VehicleService {
-	public void saveVehicle(Vehicle vehicle);
-	public List<Vehicle> listAll();
+	public void saveVehicle(OldVehicle vehicle);
+	public List<OldVehicle> listAll();
 }

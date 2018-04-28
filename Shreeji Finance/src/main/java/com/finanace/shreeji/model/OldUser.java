@@ -20,7 +20,8 @@ import org.springframework.data.annotation.Transient;
 
 @Entity
 @Table(name = "user")
-public class User {
+@Deprecated
+public class OldUser {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -45,7 +46,7 @@ public class User {
 	private int active;
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Set<Role> roles;
+	private Set<OldRole> roles;
 
 	public int getId() {
 		return id;
@@ -95,11 +96,11 @@ public class User {
 		this.active = active;
 	}
 
-	public Set<Role> getRoles() {
+	public Set<OldRole> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<Role> roles) {
+	public void setRoles(Set<OldRole> roles) {
 		this.roles = roles;
 	}
 }

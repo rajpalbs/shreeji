@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.finanace.shreeji.model.Role;
-import com.finanace.shreeji.model.User;
+import com.finanace.shreeji.model.OldRole;
+import com.finanace.shreeji.model.OldUser;
 import com.finanace.shreeji.repository.RoleRepository;
 import com.finanace.shreeji.repository.UserRepository;
 
@@ -24,16 +24,16 @@ public class UserServiceImpl implements UserService{
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Override
-	public User findUserByEmail(String email) {
+	public OldUser findUserByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
 
 	@Override
-	public void saveUser(User user) {
+	public void saveUser(OldUser user) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(1);
-        Role userRole = roleRepository.findByRole("ADMIN");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        //OldRole userRole = roleRepository.findByRole("ADMIN");
+        //user.setRoles(new HashSet<OldRole>(Arrays.asList(userRole)));
 		userRepository.save(user);
 	}
 }
