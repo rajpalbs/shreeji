@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.finanace.shreeji.model.Role;
-import com.finanace.shreeji.model.Role.RoleType;
+import com.finanace.shreeji.type.RoleType;
 
 @Repository("roleRepository")
 public interface RoleRepository extends JpaRepository<Role, UUID> {

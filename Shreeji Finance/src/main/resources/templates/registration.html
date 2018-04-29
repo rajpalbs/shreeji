@@ -3,73 +3,93 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 	<title>Registration Form</title>
-	<link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">    
 </head>
 <body>
 	<form th:action="@{/}" method="get">
-		<button class="btn btn-md btn-warning btn-block" type="Submit">Go To Login Page</button>
+		<button class="btn btn-lg btn-dark text-warning btn-block" type="Submit">GO TO LOGIN PAGE</button>
 	</form>	
 	
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-				<form autocomplete="off" action="#" th:action="@{/registration}"
-					th:object="${employee}" method="post" class="form-horizontal"
-					role="form">
-					<h2>Registration Form</h2>
-					<div class="form-group">
-						<div class="col-sm-9">
-						<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
-								class="validation-message"></label>
-						<input type="text" th:field="*{name}" placeholder="Name"
-								class="form-control" /> 
-						</div>
-					</div>
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+        	<div align="center" th:if="${param.error}">
+        		<h3 class="text-center text-danger mb-4">ERROR!!!</h3>
+        	</div>
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <span class="anchor" id="formLogin"></span>
+                    <!-- form card login -->
+                    <div class="card border-dark rounded-3">
+                        <div class="card-header text-dark">
+                            <h3 class="card-title">Register User</h3>
+                        </div>
+                        <div class="card-body">
+                            <form autocomplete="off" action="#" th:action="@{/registration}" th:object="${employee}" method="post" class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="validation-message"></label>
+									<input type="text" th:field="*{name}" placeholder="Name" class="form-control form-control-lg rounded-1" required autofocus/> 
+                                </div>
+                                <div class="form-group">
+                                	<label	th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="validation-message"></label>
+									<input type="text" th:field="*{surname}" placeholder="Surname" class="form-control form-control-lg rounded-1" required /> 
+                                </div>
+                                <div class="form-group">
+                                	<label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="validation-message"></label>
+                                	<input type="text" th:field="*{email}" type="email" placeholder="Email" class="form-control form-control-lg rounded-1" required/>
+                                </div>
+                                <div class="form-group">
+                                	<label th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="validation-message"></label>
+									<input type="password" th:field="*{password}" placeholder="Password" class="form-control form-control-lg rounded-1" required/>
+                                </div>
+                                <div class="form-group">
+                                	<select id="branch" name="branch" class="form-control" th:field="*{branch}">
+                                		<option value="">-- SELECT BRANCH --</option>
+		    							<option th:each="branch : ${branches}" th:text="${branch.name + ', '+branch.city}" th:value="${branch.id}"/>
+		    						</select>
+                                </div>
+                                <button name="Submit" value="Register" type="Submit" th:text="Register" class="btn btn-success btn-lg float-right"/>
+                                <div class="form-group text-success"><span th:text="${successMessage}"></span></div>
+							</form>
+                        </div>
+                        <!--/card-block-->
+                    </div>
+                    <!-- /form card login -->
+                </div>
+            </div>
+            <!--/row-->
+        </div>
+        <!--/col-->
+    </div>
+    <!--/row-->
+</div>
+		
+<!-- jQuery library -->	
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+    		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    		
+<!-- Popper -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
+    		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    		
+<!-- Latest compiled and minified Bootstrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
+    		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-					<div class="form-group">
-						<div class="col-sm-9">
-						<label	th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"
-								class="validation-message"></label>
-							<input type="text" th:field="*{surname}"
-								placeholder="Surname" class="form-control" /> 
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-9">
-							<input type="text" th:field="*{email}" placeholder="Email"
-								class="form-control" /> <label
-								th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-								class="validation-message"></label>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-9">
-							<input type="password" th:field="*{password}"
-								placeholder="Password" class="form-control" /> <label
-								th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-								class="validation-message"></label>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-9">
-							<select id="branch" name="branch" class="form-control" th:field="*{branch.id}">
-		    					<option th:each="branch : ${branches}" th:text="${branch.name + ', '+branch.city}" th:value="${branch.id}"/>
-		    				</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-9">
-							<button type="submit" class="btn btn-primary btn-block">Register User</button>
-						</div>
-					</div>
-					<span th:utext="${successMessage}"></span>
-				</form>
-			</div>
-		</div>
-	</div>
+<!-- Initialize Bootstrap functionality -->    			
+<script>
+	// Initialize tooltip component
+	$(function() {
+		$('[data-toggle="tooltip"]').tooltip()
+	})
 
+	// Initialize popover component
+	$(function() {
+		$('[data-toggle="popover"]').popover()
+	})
+</script>    						
 </body>
 </html>

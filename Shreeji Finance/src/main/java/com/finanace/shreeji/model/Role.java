@@ -11,7 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.finanace.shreeji.type.RoleType;
 
 @Entity
 @Table(name = "master_role")
@@ -20,12 +23,13 @@ public class Role {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	@Type(type="uuid-char")
 	@Column(name = "id", unique = true)
 	private UUID id;
 
 	@Column(name = "name", columnDefinition = "enum('ADMIN','EMPLOYEE')")
 	@Enumerated(EnumType.STRING)
-	@NotEmpty(message = "*Please provide ")
+	@NotEmpty(message = "*Please provide role type")
 	private RoleType name;
 
 	public UUID getId() {
@@ -43,9 +47,4 @@ public class Role {
 	public void setName(RoleType name) {
 		this.name = name;
 	}
-	
-	public enum RoleType {
-		ADMIN, EMPLOYEE;
-	}
-
 }

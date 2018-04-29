@@ -8,5 +8,5 @@ import com.finanace.shreeji.model.OldUser;
 
 @Repository("userRepository")
 public interface UserRepository extends JpaRepository<OldUser, Long> {
-	 OldUser findByEmail(String email);
+	 //OldUser findByEmail(String email);
 }

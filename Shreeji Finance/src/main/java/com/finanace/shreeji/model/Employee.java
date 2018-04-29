@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Transient;
@@ -23,6 +24,7 @@ public class Employee {
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	@Type(type="uuid-char")
 	@Column(name = "id", unique = true)
 	private UUID id;
 
@@ -48,9 +50,11 @@ public class Employee {
 
 	@ManyToOne
 	@JoinColumn(name = "branch_id")
+	@Type(type="uuid-char")
 	private Branch branch;
 
 	@ManyToOne
+	@Type(type="uuid-char")
 	@JoinColumn(name = "role_id")
 	private Role role;
 

@@ -9,4 +9,5 @@ import com.finanace.shreeji.model.Employee;
 
 @Repository("employeeRepository")
 public interface EmployeeRepository extends JpaRepository<Employee, UUID> {
+	Employee findByEmail(String email);
 }
