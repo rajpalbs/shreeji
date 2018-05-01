@@ -1,76 +1,89 @@
-CREATE TABLE role (
-  role_id int(11) NOT NULL AUTO_INCREMENT,
-  role varchar(255) DEFAULT NULL,
-  PRIMARY KEY (role_id)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+DROP DATABASE IF EXISTS shreeji;
+CREATE DATABASE shreeji; 
+USE shreeji;
 
-CREATE TABLE user (
-  user_id int(11) NOT NULL AUTO_INCREMENT,
-  active int(11) DEFAULT NULL,
-  email varchar(255) NOT NULL,
-  last_name varchar(255) NOT NULL,
-  name varchar(255) NOT NULL,
-  password varchar(255) NOT NULL,
-  PRIMARY KEY (user_id)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS master_insurance;
+DROP TABLE IF EXISTS detail_loan;
+DROP TABLE IF EXISTS master_loan;
+DROP TABLE IF EXISTS master_customer;
+DROP TABLE IF EXISTS master_employee;
+DROP TABLE IF EXISTS master_branch;
+DROP TABLE IF EXISTS master_role;
 
-CREATE TABLE user_role (
-  role_id int(11) NOT NULL,
-  user_id int(11) NOT NULL,
-  PRIMARY KEY (user_id,role_id),
-  FOREIGN KEY (role_id) REFERENCES role(role_id) ON DELETE CASCADE,
-  FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
+CREATE TABLE master_role (
+  id varchar(36) NOT NULL PRIMARY KEY,
+  name ENUM('ADMIN','EMPLOYEE') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE customer (
-  customer_id int(11) NOT NULL AUTO_INCREMENT,
-  name varchar(255) NOT NULL,
-  co_applicant_name varchar(255),
-  garanter_name varchar(255),
-  contact_no_1 varchar(15) NOT NULL,
-  contact_no_2 varchar(15),
-  id_proof_type ENUM('AADHAR','ELECTION_CARD','LICENCE','PASSPORT') NOT NULL,
-  id_proof_value varchar(32) NOT NULL,
-  address_type ENUM('OWN','RENTAL') NOT NULL,
-  address varchar(1024),
-  occupation_type ENUM('JOB','BUSINESS','AGRICULTURE')NOT NULL,
-  salary_type ENUM('MONTHLY','YEARLY')NOT NULL,
-  net_income float(10,2) NOT NULL,  
-  PRIMARY KEY (customer_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `master_role` VALUES (uuid(),'ADMIN');
 
-CREATE TABLE vehicle (
-  vehicle_id int(11) NOT NULL AUTO_INCREMENT,
-  number varchar(11) NOT NULL UNIQUE,
-  vehicle_generation_type ENUM('NEW','OLD','RC_LIMIT') NOT NULL,
-  vehicle_type ENUM('CAR','TRACTOR','CV','AUTO') NOT NULL,
-  model_name varchar(255) NOT NULL,
-  engine_number varchar(255) NOT NULL,
-  chassis_number varchar(255) NOT NULL,
-  mfg_year int(4) NOT NULL,
-  PRIMARY KEY (vehicle_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE insurance (
-  insurance_id int(11) NOT NULL AUTO_INCREMENT,
-  number int(11) NOT NULL,
-  vehicle_id int(11) NOT NULL,
-  PRIMARY KEY (insurance_id),
-  FOREIGN KEY (vehicle_id) REFERENCES vehicle(vehicle_id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE master_branch (
+	id varchar(36) NOT NULL PRIMARY KEY,
+    name varchar(255) NOT NULL UNIQUE,
+    city varchar(15) NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE loan (
-  loan_id int(11) NOT NULL AUTO_INCREMENT,
-  loan_amount float(10,2) NOT NULL,
-  advance_amount float(10,2) NOT NULL,
-  file_charge_amount float(10,2) NOT NULL,
-  loan_insurance_amount float(10,2) NOT NULL,
-  emi_amount float(10,2) NOT NULL,
-  tenure_type ENUM('MONTHLY','QUATERLY','HALFYEARLY') NOT NULL,
-  tenure_count int(11) NOT NULL,
-  customer_id int(11) NOT NULL,
-  vehicle_id int(11) NOT NULL,
-  PRIMARY KEY (loan_id),
-  FOREIGN KEY (customer_id) REFERENCES customer(customer_id) ON DELETE CASCADE,
-  FOREIGN KEY (vehicle_id) REFERENCES vehicle(vehicle_id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `master_branch` values(uuid(),"MODASA (MAIN)","MODASA");
+INSERT INTO `master_branch` values(uuid(),"MEGHRAJ (MAIN)","MEGHRAJ");
+
+CREATE TABLE master_employee(
+	id varchar(36) NOT NULL PRIMARY KEY,
+	name varchar(255) NOT NULL,
+    surname varchar(255) NOT NULL,
+    email varchar(255) NOT NULL,
+	password varchar(255) NOT NULL,
+    status TINYINT(1) DEFAULT 0,
+    branch_id varchar(36) NOT NULL,
+    role_id varchar(36) NOT NULL, 
+    FOREIGN KEY (branch_id) REFERENCES master_branch(id) ON DELETE CASCADE,
+    FOREIGN KEY (role_id) REFERENCES master_role(id) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE master_customer (
+	id varchar(36) NOT NULL PRIMARY KEY,
+    fullname varchar(255) NOT NULL,
+    address varchar(1024),
+    contact_number varchar(15)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE master_loan ( 
+	id varchar(36) NOT NULL PRIMARY KEY,
+    loan_type ENUM('VEHICLE','HOME','KCC') NOT NULL,
+	inquiry_date DATE NOT NULL,
+    branch_id varchar(36) NOT NULL,
+    employee_id varchar(36) NOT NULL,
+    status ENUM('PASS','PENDING','CANCELLED') NOT NULL,
+    loan_amount float(10,2) NOT NULL,
+    commission_amount float(10,2) NOT NULL,
+    FOREIGN KEY (branch_id) REFERENCES master_branch(id) ON DELETE CASCADE,
+    FOREIGN KEY (employee_id) REFERENCES master_employee(id) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE detail_loan ( 
+	id varchar(36) NOT NULL PRIMARY KEY,
+    loan_id varchar(36) NOT NULL,
+    config_name varchar(15) NOT NULL,
+    config_value varchar(255) NOT NULL,
+	FOREIGN KEY (loan_id) REFERENCES master_loan(id) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE master_insurance(
+	id varchar(36) NOT NULL PRIMARY KEY,
+    branch_id varchar(36) NOT NULL,
+    employee_id varchar(36) NOT NULL,
+    fullname varchar(255) NOT NULL,
+	address varchar(1024),
+    contact_number varchar(15),
+	vehicle_name varchar(255),
+    vehicle_registration_number varchar(15),
+    vehicle_manufacturing_year int(4),
+    insurance_start_date date NOT NULL,
+    insurance_end_date date NOT NULL,
+    insurance_company_name varchar(32),
+    value float(10,2),
+    od_premium_amount float(10,2),
+    total_premium float(10,2),
+    FOREIGN KEY (branch_id) REFERENCES master_branch(id) ON DELETE CASCADE,
+    FOREIGN KEY (employee_id) REFERENCES master_employee(id) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;

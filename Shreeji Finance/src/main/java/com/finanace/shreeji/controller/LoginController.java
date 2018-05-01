@@ -9,7 +9,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,12 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.finanace.shreeji.controller.dto.EmployeeRegistrationRequest;
 import com.finanace.shreeji.model.Branch;
 import com.finanace.shreeji.model.Employee;
-import com.finanace.shreeji.model.OldUser;
 import com.finanace.shreeji.repository.BranchRepository;
-import com.finanace.shreeji.repository.EmployeeRepository;
-import com.finanace.shreeji.repository.RoleRepository;
 import com.finanace.shreeji.service.EmployeeService;
-import com.finanace.shreeji.service.UserService;
 import com.finanace.shreeji.service.dto.EmployeeRegistrationServiceRequest;
 import com.finanace.shreeji.service.dto.EmployeeServiceResponse;
 import com.finanace.shreeji.type.EmployeeStatusType;
@@ -32,9 +27,6 @@ import com.finanace.shreeji.type.RoleType;
 
 @Controller
 public class LoginController {
-
-	@Autowired
-	private UserService userService;
 
 	@Autowired
 	private BranchRepository branchRepository;
