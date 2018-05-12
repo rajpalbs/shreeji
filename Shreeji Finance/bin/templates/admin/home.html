@@ -2,8 +2,74 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head lang="en" th:replace="head :: head"></head>
 <body>
-	<div class="container">
+	<!-- Landing home page -START -->
+	<div class="container h-100" style="margin: 10em;">
+    	<div class="row h-100 justify-content-center align-items-center">
+    		<div class="col-lg-3">
+    				<img th:src="@{/images/loan.svg}" data-toggle="modal" data-target="#loantypemodal"
+    					class="rounded-circle" width="200" height="200" style="background: linear-gradient(0deg,teal,darkturquoise);"/> 
+    			
+    		</div>
+     		<div class="col-lg-3">
+     			<img th:src="@{/images/insurance.svg}" 
+     					class="rounded-circle" width="200" height="200" style="background: linear-gradient(0deg,peachpuff,moccasin);"/>
+     		</div>
+     		
+     		<div class="col-lg-3">
+     			<img th:src="@{/images/report.png}" class="rounded-circle" width="200" height="200"/>
+     		</div>
+    	</div>
 		<th:block th:include="tail :: bodytail"></th:block>
 	</div>
+	<!-- Landing home page -ENDS -->
+	
+	
+	<div class="modal fade" id="loantypemodal" tabindex="-1" role="dialog" aria-labelledby="Please choose loan type" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Please choose loan type</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="radio">
+						<label><input type="radio" name="loanType" value="vehicle"> Vehicle Loan</label>
+					</div>
+					<div class="radio">
+						<label><input type="radio" name="loanType" value="home"> Home Loan</label>
+					</div>
+					<div class="radio">
+						<label><input type="radio" name="loanType" value="kcc"> KCC</label>
+					</div>
+				</div>
+				<div class="modal-footer">
+        			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        			<button type="button" class="btn btn-primary" id="submitloantype">Go ...</button>
+      			</div>
+      			<form id="loanform" th:action="@{/loan/TYPE/create}" method="get">
+      			</form>
+			</div>
+		</div>
+	</div>
+	<!-- Loan Type Selection modal Dialog-END -->
 </body>
+<script type='text/javascript'>
+	jQuery(document).ready(function(){
+		var loanType;
+		$('input:radio[name="loanType"]').change(function(){
+			loanType = $(this).val();
+		});
+		
+		$("#submitloantype").on('click', function() {
+			if(loanType){
+				$("#loanform")
+					.attr("action", $('#loanform').attr('action').replace("TYPE", loanType))
+					.submit();
+			}
+		});
+	});
+</script>
+
 </html>
