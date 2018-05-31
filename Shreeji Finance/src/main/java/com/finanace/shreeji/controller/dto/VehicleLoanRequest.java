@@ -1,58 +1,10 @@
 package com.finanace.shreeji.controller.dto;
 
-import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-public class VehicleLoanRequest {
-	@DateTimeFormat(pattern="dd-MMM-yyyy")
-	private Date inqueryDate;
-	private String customerName;
-	private String phoneNumber;
-	private String address;
+public class VehicleLoanRequest extends BaseLoanRequest {
 	private String vehicleName;
-	private String vehiclecondition;
+	private String vehicleCondition;
 	private Integer manufacturingYear;
 	private String financerName;
-	private Float loanAmount;
-	private Float commissionAmount;
-	private String loanStatus;
-	private String loanNumber;
-	@DateTimeFormat(pattern="dd-MMM-yyyy")
-	private Date loanDate;
-	private Float loanCommissionAmount;
-
-	public Date getInqueryDate() {
-		return inqueryDate;
-	}
-
-	public void setInqueryDate(Date inqueryDate) {
-		this.inqueryDate = inqueryDate;
-	}
-
-	public String getCustomerName() {
-		return customerName;
-	}
-
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
 
 	public String getVehicleName() {
 		return vehicleName;
@@ -62,12 +14,12 @@ public class VehicleLoanRequest {
 		this.vehicleName = vehicleName;
 	}
 
-	public String getVehiclecondition() {
-		return vehiclecondition;
+	public String getVehicleCondition() {
+		return vehicleCondition;
 	}
 
-	public void setVehiclecondition(String vehiclecondition) {
-		this.vehiclecondition = vehiclecondition;
+	public void setVehicleCondition(String vehicleCondition) {
+		this.vehicleCondition = vehicleCondition;
 	}
 
 	public Integer getManufacturingYear() {
@@ -86,66 +38,18 @@ public class VehicleLoanRequest {
 		this.financerName = financerName;
 	}
 
-	public Float getLoanAmount() {
-		return loanAmount;
-	}
-
-	public void setLoanAmount(Float loanAmount) {
-		this.loanAmount = loanAmount;
-	}
-
-	public Float getCommissionAmount() {
-		return commissionAmount;
-	}
-
-	public void setCommissionAmount(Float commissionAmount) {
-		this.commissionAmount = commissionAmount;
-	}
-
-	public String getLoanStatus() {
-		return loanStatus;
-	}
-
-	public void setLoanStatus(String loanStatus) {
-		this.loanStatus = loanStatus;
-	}
-
-	public String getLoanNumber() {
-		return loanNumber;
-	}
-
-	public void setLoanNumber(String loanNumber) {
-		this.loanNumber = loanNumber;
-	}
-
-	public Date getLoanDate() {
-		return loanDate;
-	}
-
-	public void setLoanDate(Date loanDate) {
-		this.loanDate = loanDate;
-	}
-
-	public Float getLoanCommissionAmount() {
-		return loanCommissionAmount;
-	}
-
-	public void setLoanCommissionAmount(Float loanCommissionAmount) {
-		this.loanCommissionAmount = loanCommissionAmount;
-	}
-
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("VehicleLoanRequest [inqueryDate=").append(inqueryDate).append(", customerName=")
-				.append(customerName).append(", phoneNumber=").append(phoneNumber).append(", address=").append(address)
-				.append(", vehicleName=").append(vehicleName).append(", vehiclecondition=").append(vehiclecondition)
-				.append(", manufacturingYear=").append(manufacturingYear).append(", financerName=").append(financerName)
-				.append(", loanAmount=").append(loanAmount).append(", commissionAmount=").append(commissionAmount)
-				.append(", loanStatus=").append(loanStatus).append(", loanNumber=").append(loanNumber)
-				.append(", loanDate=").append(loanDate).append(", loanCommissionAmount=").append(loanCommissionAmount)
-				.append("]");
-		return builder.toString();
+		return "VehicleLoanRequest [vehicleName=" + vehicleName + ", vehicleCondition=" + vehicleCondition
+				+ ", manufacturingYear=" + manufacturingYear + ", financerName=" + financerName + ", getInquiryDate()="
+				+ getInquiryDate() + ", getCustomerName()=" + getCustomerName() + ", getPhoneNumber()="
+				+ getPhoneNumber() + ", getAddress()=" + getAddress() + ", getLoanAmount()=" + getLoanAmount()
+				+ ", getCommissionAmount()=" + getCommissionAmount() + ", getLoanStatus()=" + getLoanStatus()
+				+ ", getLoanNumber()=" + getLoanNumber() + ", getLoanDate()=" + getLoanDate()
+				+ ", getLoanCommissionAmount()=" + getLoanCommissionAmount() + ", getPendingRemark()="
+				+ getPendingRemark() + ", getCancelRemark()=" + getCancelRemark() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 
+	
 }

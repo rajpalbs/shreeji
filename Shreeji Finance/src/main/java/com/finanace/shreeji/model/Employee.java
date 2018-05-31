@@ -18,7 +18,6 @@ import org.springframework.data.annotation.Transient;
 
 @Entity
 @Table(name = "master_employee")
-
 public class Employee {
 
 	@Id

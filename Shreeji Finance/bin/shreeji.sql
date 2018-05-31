@@ -49,6 +49,7 @@ CREATE TABLE master_customer (
 
 CREATE TABLE master_loan ( 
 	id varchar(36) NOT NULL PRIMARY KEY,
+	customer_id varchar(36) NOT NULL,
     loan_type ENUM('VEHICLE','HOME','KCC') NOT NULL,
 	inquiry_date DATE NOT NULL,
     branch_id varchar(36) NOT NULL,
@@ -56,6 +57,7 @@ CREATE TABLE master_loan (
     status ENUM('PASS','PENDING','CANCELLED') NOT NULL,
     loan_amount float(10,2) NOT NULL,
     commission_amount float(10,2) NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES master_customer(id) ON DELETE CASCADE,
     FOREIGN KEY (branch_id) REFERENCES master_branch(id) ON DELETE CASCADE,
     FOREIGN KEY (employee_id) REFERENCES master_employee(id) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -63,7 +65,7 @@ CREATE TABLE master_loan (
 CREATE TABLE detail_loan ( 
 	id varchar(36) NOT NULL PRIMARY KEY,
     loan_id varchar(36) NOT NULL,
-    config_name varchar(15) NOT NULL,
+    config_name varchar(36) NOT NULL,
     config_value varchar(255) NOT NULL,
 	FOREIGN KEY (loan_id) REFERENCES master_loan(id) ON DELETE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
