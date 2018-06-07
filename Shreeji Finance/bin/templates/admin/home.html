@@ -2,17 +2,23 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head lang="en" th:replace="head :: head"></head>
 <body>
-	<!-- Landing home page -START -->
+
+	<!-- Landing home page - STARTS -->
 	<div class="container h-100" style="margin: 10em;">
     	<div class="row h-100 justify-content-center align-items-center">
+    		
     		<div class="col-lg-3">
     				<img th:src="@{/images/loan.svg}" data-toggle="modal" data-target="#loantypemodal"
     					class="rounded-circle" width="200" height="200" style="background: linear-gradient(0deg,teal,darkturquoise);"/> 
     			
     		</div>
+     		
      		<div class="col-lg-3">
-     			<img th:src="@{/images/insurance.svg}" 
+     			<a th:href="@{/insurance/create}">
+     				<img th:src="@{/images/insurance.svg}" 
      					class="rounded-circle" width="200" height="200" style="background: linear-gradient(0deg,peachpuff,moccasin);"/>
+     					
+     			</a>		
      		</div>
      		
      		<div class="col-lg-3">
@@ -23,7 +29,7 @@
 	</div>
 	<!-- Landing home page -ENDS -->
 	
-	
+	<!-- Loan Type Selection modal Dialog - STARTS -->
 	<div class="modal fade" id="loantypemodal" tabindex="-1" role="dialog" aria-labelledby="Please choose loan type" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -55,6 +61,8 @@
 	</div>
 	<!-- Loan Type Selection modal Dialog-END -->
 </body>
+
+<!-- SCRIPTS -->
 <script type='text/javascript'>
 	jQuery(document).ready(function(){
 		var loanType;
