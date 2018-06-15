@@ -22,7 +22,7 @@
      		</div>
      		
      		<div class="col-lg-3">
-     			<img th:src="@{/images/report.png}" class="rounded-circle" width="200" height="200"/>
+     			<img th:src="@{/images/report.png}" data-toggle="modal" data-target="#reportmodal" class="rounded-circle" width="200" height="200"/>
      		</div>
     	</div>
 		<th:block th:include="tail :: bodytail"></th:block>
@@ -60,10 +60,78 @@
 		</div>
 	</div>
 	<!-- Loan Type Selection modal Dialog-END -->
+	
+	<!-- Report Modal - START -->
+	<div class="modal fade" id="reportmodal" tabindex="-1" role="dialog" aria-labelledby="Please choose From Date & To Date" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<form id="reportform" th:action="@{/report/download}" method="post">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">Please choose From Date & To Date</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>			
+					<div class="modal-body">
+						<div class="row mb-4">
+							<div class="col">From Date: 
+								<input id="fromdate" name="fromDate" type="text" class="form-control form-control-sm rounded-1" required readonly="true" />
+							</div>
+							<div class="col">To Date: 
+								<input id="todate" name="toDate" type="text" class="form-control form-control-sm rounded-1"	required readonly="true" />
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+	        			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        			<button type="submit" class="btn btn-primary">Download Report</button>
+	      			</div>
+      			</form>
+			</div>
+		</div>
+	</div>
+	<!-- Report Modal - END -->
+	
+	
+	<div id="messagemodal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title text-success" th:text="${message}"/>
+				</div>
+				<div class="modal-body">
+					<div th:if="${data}" >
+						<table class="table table-bordered table-hover">
+							<tbody>
+								<th:block th:each="key: ${data.keySet()}">
+	    							<tr>
+	        							<td th:text="${key}"/>
+	        							<td th:text="${data.get(key)}"/>
+	    							</tr>
+								</th:block>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 
 <!-- SCRIPTS -->
-<script type='text/javascript'>
+<script type='text/javascript' th:inline="javascript">
+	/*<![CDATA[*/
+
+		var message = /*[[${message}]]*/ ;
+
+	/*]]>*/
+	if(message){
+		$('#messagemodal').modal('show');
+	}
 	jQuery(document).ready(function(){
 		var loanType;
 		$('input:radio[name="loanType"]').change(function(){
@@ -77,6 +145,24 @@
 					.submit();
 			}
 		});
+		
+		var today = new Date();
+		const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+		var strDate = today.getDate() + "-" + monthNames[(today.getMonth())] + "-" + today.getFullYear();
+		$('#fromdate').datepicker({
+			format: 'dd-mmm-yyyy',
+			uiLibrary: 'bootstrap4',
+			value: strDate,
+			maxDate: new Date()
+		});
+
+		$('#todate').datepicker({
+			format: 'dd-mmm-yyyy',
+			uiLibrary: 'bootstrap4',
+			value: strDate,
+			maxDate: new Date()
+		});
+
 	});
 </script>
 

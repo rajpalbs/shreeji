@@ -28,7 +28,7 @@ public class Customer {
 	@Column(name = "address")
 	private String address;
 
-	@Column(name = "contact_numbr")
+	@Column(name = "contact_number")
 	private String contactNumber;
 
 	public UUID getId() {

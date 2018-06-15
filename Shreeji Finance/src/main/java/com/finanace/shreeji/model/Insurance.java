@@ -1,47 +1,102 @@
-package com.finanace.shreeji.controller.dto;
+package com.finanace.shreeji.model;
 
 import java.util.Date;
+import java.util.UUID;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-public class InsuranceRequest {
-	private String customerName;
-	private String phoneNumber;
-	private String address;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
+@Entity
+@Table(name = "master_insurance")
+public class Insurance {
+
+	@Id
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	@Type(type = "uuid-char")
+	@Column(name = "id", unique = true)
+	private UUID id;
+
+	@ManyToOne
+	@JoinColumn(name = "customer_id")
+	@Type(type = "uuid-char")
+	private Customer customer;
+
+	@ManyToOne
+	@JoinColumn(name = "branch_id")
+	@Type(type = "uuid-char")
+	private Branch branch;
+
+	@ManyToOne
+	@JoinColumn(name = "employee_id")
+	@Type(type = "uuid-char")
+	private Employee employee;
+
+	@Column(name = "vehicle_name")
 	private String vehicleName;
+
+	@Column(name = "vehicle_registration_number")
 	private String registrationNumber;
+
+	@Column(name = "vehicle_manufacturing_year")
 	private Integer manufacturingYear;
-	@DateTimeFormat(pattern = "dd-MMM-yyyy")
+
+	@Column(name = "insurance_start_date")
 	private Date startDate;
-	@DateTimeFormat(pattern = "dd-MMM-yyyy")
+
+	@Column(name = "insurance_end_date")
 	private Date expireDate;
+
+	@Column(name = "insurance_company_name")
 	private String insuranceCompanyName;
+
+	@Column(name = "value")
 	private Float value;
+
+	@Column(name = "od_premium_amount")
 	private Float odPremiumAmount;
+
+	@Column(name = "total_premium")
 	private Integer totalPremium;
 
-	public String getCustomerName() {
-		return customerName;
+	public UUID getId() {
+		return id;
 	}
 
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
+	public void setId(UUID id) {
+		this.id = id;
 	}
 
-	public String getPhoneNumber() {
-		return phoneNumber;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
-	public String getAddress() {
-		return address;
+	public Branch getBranch() {
+		return branch;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setBranch(Branch branch) {
+		this.branch = branch;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 	public String getVehicleName() {

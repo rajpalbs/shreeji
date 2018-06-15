@@ -1,48 +1,17 @@
-package com.finanace.shreeji.controller.dto;
+package com.finanace.shreeji.service.dto;
 
 import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-public class InsuranceRequest {
-	private String customerName;
-	private String phoneNumber;
-	private String address;
+public class InsuranceServiceRequest {
 	private String vehicleName;
 	private String registrationNumber;
 	private Integer manufacturingYear;
-	@DateTimeFormat(pattern = "dd-MMM-yyyy")
 	private Date startDate;
-	@DateTimeFormat(pattern = "dd-MMM-yyyy")
 	private Date expireDate;
 	private String insuranceCompanyName;
 	private Float value;
 	private Float odPremiumAmount;
 	private Integer totalPremium;
-
-	public String getCustomerName() {
-		return customerName;
-	}
-
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
 
 	public String getVehicleName() {
 		return vehicleName;
