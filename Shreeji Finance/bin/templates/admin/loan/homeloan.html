@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head lang="en" th:replace="head :: head"></head>
+	<body>
+		<!-- Home loan page- STARTS -->
+		<div class="container py-5">
+		    <div class="row">
+		        <div class="col-md-12">
+		            <div class="row">
+		                <div class="col-lg-9 mx-auto">
+		                    <!-- form card registration -->
+		                    <div class="card border-dark rounded-3">
+		                        <div class="card-header text-dark">
+		                            <h3 class="card-title">Home Loan</h3>
+		                        </div>
+		                        <div class="card-body">
+		                            <form id="homeloanform" autocomplete="off" action="#" th:action="@{/loan/home/create}" method="post" class="form-horizontal" role="form">
+		                            	<div class="row mb-4">
+		                            		<div class="col">
+		                            			<input id="inquirydate" name="inquiryDate" type="text" placeholder="Inquiry Date" class="form-control form-control-sm rounded-1 datepicker" required readonly="true"/>
+		                            		</div> 
+											<div class="col">												
+												<input type="text" name="customerName" placeholder="Customer Name" class="form-control form-control-sm rounded-1" required />
+											</div>
+											<div class="col">												
+												<input type="number" name="phoneNumber" placeholder="Customer Contact No." class="form-control form-control-sm rounded-1" required/> 
+											</div>
+		                            	</div>
+
+		                            	<div class="row mb-4">
+		                            		<div class="col">
+		                            			<textarea name="address" class="form-control form-control-sm rounded-1" rows="2" cols="2" placeholder="Address" required="required"></textarea>
+		                            		</div>
+		                            		<div class="col">													
+												<input type="number" step="0.01" name="loanAmount" placeholder="Loan amount" class="form-control form-control-sm rounded-1" required />
+											</div>
+		      								<div class="col">												
+												<input type="number" step="0.01" name="commissionAmount" placeholder="Commission amount" class="form-control form-control-sm rounded-1" required/> 
+											</div>
+		                            		
+		                            	</div>
+		                            	
+		                            	<div class="row mb-1">
+		                            		<div class="col">
+		                            			<label class="radio">Status : <input type="radio" name="loanStatus" value="pass" checked="checked">Passed</label>
+		                            		</div>
+		                            		<div class="col">
+												<label class="radio"><input type="radio" name="loanStatus" value="pending">Pending</label>
+		                            		</div>
+		                            		<div class="col">
+												<label class="radio"><input type="radio" name="loanStatus" value="cancelled">Cancelled</label>
+		                            		</div>
+		                            	</div>
+		                            	<div class="row mb-2">
+		                            		<div class="col">
+		                            			<input id="loannumber" type="text" name="loanNumber" placeholder="Loan No" class="form-control form-control-sm rounded-1" required/>
+		                            		</div>
+		                            		<div class="col">
+		                            			<textarea id="pendingremark" name="pendingRemark" class="form-control form-control-sm rounded-1" rows="1" cols="1" placeholder="Remark/Status" required="required" disabled="disabled"></textarea>
+		                            		</div>
+		                            		<div class="col">
+		                            			<textarea id="cancelremark" name="cancelRemark" class="form-control form-control-sm rounded-1" rows="1" cols="1" placeholder="Reason/Status" required="required" disabled="disabled"></textarea>
+		                            		</div>
+		                            	</div>
+										<div class="row mb-2">
+		                            		<div class="col">
+		                            			<input id="loandate" name="loanDate" type="text" placeholder="Loan Date" class="form-control form-control-sm rounded-1 datepicker" required readonly="true"/>
+		                            		</div>
+		                            		<div class="col">
+		                            		</div>
+		                            		<div class="col">
+		                            		</div>
+		                            	</div>
+		                            	<div class="row mb-2">
+		                            		<div class="col">
+		                            			<input id="loancommissionamount" name="loanCommissionAmount" type="number" step="0.01" placeholder="Loan commission amount" class="form-control form-control-sm rounded-1" required/>
+		                            		</div>
+		                            		<div class="col">
+		                            		</div>
+		                            		<div class="col">
+		                            			<button id="sbthomeform" name="Submit" value="Done" type="Submit" th:text="Done" class="btn btn-success float-right" />
+		                            		</div>
+		                            	</div>
+									</form>		                            	
+		                         </div>
+							</div>
+							<!--/card-block-->
+		                    </div>
+		                    <!-- /form card login -->
+		                </div>
+		            </div>
+		            <!--/row-->
+		        </div>
+		        <!--/col-->
+		    </div>
+		    <!--/row-->
+		</div>
+		<!-- Home loan page- ENDS -->
+		<th:block th:include="tail :: bodytail"></th:block>
+	</body>
+	<script type='text/javascript'>
+		jQuery(document).ready(function(){
+			// Date-Picker Related Changes
+			var today = new Date();
+			const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+			var strDate = today.getDate() + "-" + monthNames[(today.getMonth())] + "-" + today.getFullYear();
+			$('#inquirydate').datepicker({
+				format: 'dd-mmm-yyyy',
+				uiLibrary: 'bootstrap4',
+				value: strDate,
+				maxDate: new Date()
+			});
+
+			$('#loandate').datepicker({
+				format: 'dd-mmm-yyyy',
+				uiLibrary: 'bootstrap4',
+				value: strDate,
+				maxDate: new Date()
+			});
+
+			//Loan Status
+			$('input[name="loanStatus"]').change(function() {
+				var cheked = $('input[name="loanStatus"]:checked').val();
+				if("pass"==cheked){
+					$('#loannumber').prop("disabled",false);
+					$('#loandate').prop("disabled",false);
+					$('#loancommissionamount').prop("disabled",false);
+					
+					$('#pendingremark').prop("disabled",true);
+					$('#cancelremark').prop("disabled",true);
+				}else if("pending"==cheked){
+					$('#loannumber').prop("disabled",true);
+					$('#loandate').prop("disabled",true);
+					$('#loancommissionamount').prop("disabled",true);
+					
+					$('#pendingremark').prop("disabled",false);
+					$('#cancelremark').prop("disabled",true);
+				}else if("cancelled"==cheked){
+					$('#loannumber').prop("disabled",true);
+					$('#loandate').prop("disabled",true);
+					$('#loancommissionamount').prop("disabled",true);
+					
+					$('#pendingremark').prop("disabled",true);
+					$('#cancelremark').prop("disabled",false);
+				}
+			});
+			
+			$('#homeloanform').bind('submit', function (e) {
+			    $('#sbthomeform').prop('disabled', true);
+			});
+			
+		});
+    </script>
+</html>
+	
+	

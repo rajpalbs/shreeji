@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head lang="en" th:replace="head :: head"></head>
+	<body>
+		<!-- Home loan page- STARTS -->
+		<div class="container py-5">
+		    <div class="row">
+		        <div class="col-md-12">
+		            <div class="row">
+		                <div class="col-lg-9 mx-auto">
+		                    <!-- form card registration -->
+		                    <div class="card border-dark rounded-3">
+		                        <div class="card-header text-dark">
+		                            <h3 class="card-title">Insurance Details</h3>
+		                        </div>
+		                        <div class="card-body">
+		                            <form id="homeloanform" autocomplete="off" action="#" th:action="@{/insurance/create}" method="post" class="form-horizontal" role="form">
+		                            	<div class="row mb-4">	 
+											<div class="col">												
+												<input type="text" name="customerName" placeholder="Customer Name" class="form-control form-control-sm rounded-1" required />
+											</div>
+											<div class="col">												
+												<input type="number" name="phoneNumber" placeholder="Customer Contact No." class="form-control form-control-sm rounded-1" required/> 
+											</div>
+											<div class="col">
+		                            			<textarea name="address" class="form-control form-control-sm rounded-1" rows="2" cols="2" placeholder="Address" required="required"></textarea>
+		                            		</div>
+		                            	</div>
+										<hr>
+		                            	<div class="row mb-4">
+		                            		<div class="col">												
+												<input type="text" name="vehicleName" placeholder="Vehicle Name" class="form-control form-control-sm rounded-1" required />
+											</div>
+											<div class="col">												
+												<input type="text" name="registrationNumber" placeholder="Reg. Number" class="form-control form-control-sm rounded-1" required />
+											</div>
+											<div class="col">												
+												<input type="number" name="manufacturingYear" placeholder="Manufacturing Year" class="form-control form-control-sm rounded-1" required />
+											</div>
+		                            	</div>
+		                            	<hr>
+		                            	<div class="row mb-4">
+		                            		<div class="col">Insurance Start Date:												
+												<input id="startdate" name="startDate" type="text" class="form-control form-control-sm rounded-1" required readonly="true" />
+											</div>
+											<div class="col">Insurance Expire Date:												
+												<input id="expiredate" name="expireDate" type="text" class="form-control form-control-sm rounded-1" required readonly="true" />
+											</div>
+											<div class="col">&nbsp;												
+												<input type="text" name="insuranceCompanyName" placeholder="Insurance Company Name" class="form-control form-control-sm rounded-1" required />
+											</div>
+		                            	</div>
+		                            	<div class="row mb-4">
+		                            		<div class="col">												
+												<input type="number" name="value" placeholder="Value" class="form-control form-control-sm rounded-1" required />
+											</div>
+											<div class="col">												
+												<input type="number" name="odPremiumAmount" placeholder="OD Premium Amount" class="form-control form-control-sm rounded-1" required />
+											</div>
+											<div class="col">												
+												<input type="number" name="totalPremium" placeholder="Total Premium" class="form-control form-control-sm rounded-1" required />
+											</div>
+		                            	</div>
+		                            	<div class="row mb-4 text-center">
+		                            		<div class="col">
+		                            			<button name="done" value="Done" type="Submit" th:text="Done" class="btn btn-success btn-lg center-block">Done</button>
+		                            		</div>
+		                            	</div>		                          
+									</form>		                            	
+		                         </div>
+							</div>
+							<!--/card-block-->
+		                    </div>
+		                    <!-- /form card login -->
+		                </div>
+		            </div>
+		            <!--/row-->
+		        </div>
+		        <!--/col-->
+		    </div>
+		    <!--/row-->
+		</div>
+		<!-- Home loan page- ENDS -->
+		<th:block th:include="tail :: bodytail"></th:block>
+	</body>
+	<script type='text/javascript'>
+		jQuery(document).ready(function(){
+			// Date-Picker Related Changes
+			var today = new Date();
+			const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+			var strDate = today.getDate() + "-" + monthNames[(today.getMonth())] + "-" + today.getFullYear();
+			$('#startdate').datepicker({
+				format: 'dd-mmm-yyyy',
+				uiLibrary: 'bootstrap4',
+				value: strDate,
+				maxDate: new Date()
+			});
+
+			$('#expiredate').datepicker({
+				format: 'dd-mmm-yyyy',
+				uiLibrary: 'bootstrap4',
+				value: strDate
+			});			
+		});
+    </script>
+</html>

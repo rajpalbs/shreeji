@@ -1,5 +1,13 @@
 package com.finanace.shreeji.service;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.ParameterMode;
+import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
 import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
 
@@ -13,6 +21,7 @@ import com.finanace.shreeji.model.Customer;
 import com.finanace.shreeji.model.Employee;
 import com.finanace.shreeji.model.Loan;
 import com.finanace.shreeji.model.LoanDetail;
+import com.finanace.shreeji.model.dto.LoanReportDTO;
 import com.finanace.shreeji.repository.CustomerRepository;
 import com.finanace.shreeji.repository.EmployeeRepository;
 import com.finanace.shreeji.repository.LoanDetailsRepository;
@@ -39,6 +48,9 @@ public class LoanServiceImpl implements LoanService {
 	
 	@Autowired
 	private EmployeeRepository employeeRepository; 
+	
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	@Override
 	@Transactional(value=TxType.REQUIRED)
@@ -95,5 +107,47 @@ public class LoanServiceImpl implements LoanService {
 		loanDetail.setName(key);
 		loanDetail.setValue(value);
 		loanDetailsRepository.save(loanDetail);
+	}
+	
+	@Override
+	public List<LoanReportDTO> getLoanReport(Date fromDate,Date toDate){
+		
+		StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("loan_report");
+		storedProcedureQuery.registerStoredProcedureParameter("fromDate", Date.class, ParameterMode.IN);
+		storedProcedureQuery.registerStoredProcedureParameter("toDate", Date.class, ParameterMode.IN);
+		storedProcedureQuery.setParameter("fromDate", fromDate);
+		storedProcedureQuery.setParameter("toDate", toDate);
+		@SuppressWarnings("rawtypes")
+		List resultList = storedProcedureQuery.getResultList();
+		List<LoanReportDTO> loanReportDTO = new ArrayList<>();
+		return loanReportDTO;
+	}
+	
+	private void processToReportDTO(List resultList,List<LoanReportDTO> loanReportDTO){
+		for(Object currentLoanRecord : resultList){
+			LoanReportDTO reportDTO = new LoanReportDTO();
+			Object[] data = (Object[]) currentLoanRecord;
+			reportDTO.setCustomername(data[0].toString());
+			reportDTO.setCustomercontactnumber(data[1].toString());
+			reportDTO.setEmployeename(data[2].toString());
+			reportDTO.setLoanbranchname(data[3].toString());
+			reportDTO.setLoantype(data[3].toString());
+			reportDTO.setLoaninquirydate(data[4].toString());
+			reportDTO.setCustomercontactnumber(data[1].toString());
+			reportDTO.setCustomercontactnumber(data[1].toString());
+			reportDTO.setCustomercontactnumber(data[1].toString());
+			
+			
+			
+/*			   CONCAT(me.name, ' ', me.surname)   as employeename,
+			   mb.name as loanbranchname,
+			   ml.inquiry_date as loaninsuirydate,
+			   ml.loan_amount as loanamount,
+			   ml.commission_amount as commissionamount,
+			   ml.loan_type as loantype,
+			
+			
+			loanReportDTO.add(reportDTO);
+*/		}
 	}
 }

@@ -105,9 +105,10 @@ BEGIN
 	   mc.contact_number as customercontactnumber,
 	   CONCAT(me.name, ' ', me.surname)   as employeename,
 	   mb.name as loanbranchname,
-	   ml.loan_type as loantype,
+	   ml.inquiry_date as loaninsuirydate,
 	   ml.loan_amount as loanamount,
-	   ml.created_at as createdate,
+	   ml.commission_amount as commissionamount,
+	   ml.loan_type as loantype,
 	   GROUP_CONCAT(dl.config_name,'#',dl.config_value) as detailloandata
 	from master_loan ml inner join master_customer mc on mc.id = ml.customer_id and date(ml.created_at) between date(from_date) and date(to_date)  
 	inner join master_employee me on me.id = ml.employee_id
