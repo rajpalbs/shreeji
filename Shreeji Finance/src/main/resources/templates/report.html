@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="head :: head"></head>
+
+<body>
+	<div lang="en" th:replace="menu :: menu"></div>
+
+	<form id="configform" autocomplete="off" th:action="@{/report/download}"
+		method="post" class="form-horizontal" role="form">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-lg-9 mx-auto">
+						<div align="center" th:if="${msg}">
+							<h3 class="text-center text-success mb-4"
+								th:utext="${msg}" />
+						</div> 
+							<div class="card border-dark rounded-3">
+								<div class="card-header text-dark">
+									<h3 class="card-title">Report</h3>
+								</div>
+								<div class="card-body">
+									<div class="row mb-4">
+										<div class="col">From Date: 
+											<input id="fromdate" name="fromDate" type="text" class="form-control form-control-sm rounded-1" required readonly="true" />
+										</div>
+										<div class="col">To Date: 
+											<input id="todate" name="toDate" type="text" class="form-control form-control-sm rounded-1"	required readonly="true" />
+										</div>
+									</div>
+								</div>
+								<div class="row mb-4">
+									<div class="col text-center">
+										<button id="sbtvehicleform" name="Submit" value="Done"
+												type="Submit" th:text="'Generate Report'"
+												class="btn btn-success " tabindex="3" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<th:block th:include="tail :: bodytail"></th:block>
+</body>
+	<script type='text/javascript'>
+		jQuery(document).ready(function(){
+			
+			var today = new Date();
+			const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+			var strDate = today.getDate() + "-" + monthNames[(today.getMonth())] + "-" + today.getFullYear();
+			$('#fromdate').datepicker({
+				format: 'dd-mmm-yyyy',
+				uiLibrary: 'bootstrap4',
+				value: strDate,
+				maxDate: new Date()
+			});
+
+			$('#todate').datepicker({
+				format: 'dd-mmm-yyyy',
+				uiLibrary: 'bootstrap4',
+				value: strDate,
+				maxDate: new Date()
+			});
+			
+		});
+    </script>
+</html>

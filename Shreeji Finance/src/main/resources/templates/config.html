@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="head :: head"></head>
+
+<body>
+	<div lang="en" th:replace="menu :: menu"></div>
+
+	<form id="configform" autocomplete="off" th:action="@{/config}"
+		method="post" class="form-horizontal" role="form">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-lg-9 mx-auto">
+						<div align="center" th:if="${msg}">
+							<h3 class="text-center text-success mb-4"
+								th:utext="${msg}" />
+						</div> 
+							<div class="card border-dark rounded-3">
+								<div class="card-header text-dark">
+									<h3 class="card-title">Administrative Configuration</h3>
+								</div>
+								<div class="card-body">
+									<div class="form-group">
+										<label for="comment">Agent Names(separate by
+											comma)</label>
+										<textarea class="form-control" rows="2" id="agentNames" name="agentNames" th:text="${config.agentNames}"></textarea>
+									</div>
+									<div class="form-group">
+										<label for="comment">Finance Bank Names(separate by
+											comma)</label>
+										<textarea class="form-control" rows="2" id="financerNames" name="financerNames" th:text="${config.financerNames}" ></textarea>
+									</div>
+									<div class="row mb-4">
+										<div class="col">
+											<button id="sbtvehicleform" name="Submit" value="Done"
+												type="Submit" th:text="Done"
+												class="btn btn-success float-right" tabindex="14" />
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<th:block th:include="tail :: bodytail"></th:block>
+</body>

@@ -34,12 +34,14 @@ public class LoginController {
     @Autowired
     private EmployeeService employeeService; 
 
-	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
+	@RequestMapping(value = "/login" , method = RequestMethod.GET)
 	public ModelAndView login() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("login");
 		return modelAndView;
 	}
+	
+	
 
 	@RequestMapping(value = "/registration", method = RequestMethod.GET)
 	public ModelAndView registration() {

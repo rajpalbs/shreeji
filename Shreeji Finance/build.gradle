@@ -8,7 +8,7 @@ apply plugin: 'war'
 sourceCompatibility = '1.8'
 
 war{
-	//webXml = file('src/main/webapp/web.xml')
+	webXml = file('src/main/webapp/web.xml')
 	baseName = 'srijeefinanace'
     version =  '0.0.1'
 }

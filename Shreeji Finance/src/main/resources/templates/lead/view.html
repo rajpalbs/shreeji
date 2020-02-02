@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="head :: head"></head>
+<body>
+	<div lang="en" th:replace="menu :: menu"></div>
+	<input type="hidden" id="currentStatus" th:value="${lead.status}">
+	<form id="leadForm" autocomplete="off"
+		th:action="@{/lead/update}" method="post" class="form-horizontal"
+		role="form">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-lg-9 mx-auto">
+							<!-- form card registration -->
+							<div class="card border-dark rounded-3">
+								<div class="card-header text-dark">
+									<div class="row mb-4">
+										<div class="col">
+											<h3 class="card-title" th:utext="'ID : '+ ${lead.id} " />
+										</div>
+										<div class="col">
+											<select id = "leadstatus" name="status" class="form-control" tabindex="1">
+												<option th:value="'OPEN'" th:text="OPEN" th:selected="${lead.status == 'OPEN'}" />
+												<option th:value="'FOLLOW_UP'" th:text="FOLLOW_UP" th:selected="${lead.status == 'FOLLOW_UP'}" />
+												<option th:value="'SENCTIONED'" th:text="SENCTIONED" th:selected="${lead.status == 'SENCTIONED'}" />
+												<option th:value="'CANCELLED'" th:text="CANCELLED" th:selected="${lead.status == 'CANCELLED'}" />
+												<option th:value="'DELETE'" th:text="DELETE" th:selected="${lead.status == 'DELETE'}" />
+											</select>
+										</div>
+									</div>
+
+								</div>
+								<div class="card-body">
+									<input type="hidden" name="id" th:value="${lead.id}">
+									<div class="row mb-4">
+										<div class="col">
+											<input id="inquirydate" name="inquiryDate" th:value="${lead.inquiryDate}" type="text" class="form-control form-control-sm rounded-1 datepicker" readonly="true" tabindex="2" />
+										</div>
+										<div class="col">
+											<select id="inquiryGivenBy" name="inquiryGivenBy" class="form-control" tabindex="2">
+													<option th:each="agentName : ${agentNames}" th:value="${agentName}" th:text="${agentName}" th:selected="${lead.givenBy == agentName}"></option>
+											</select>
+										</div>
+									</div>
+
+									<hr style="border: 1px solid blue;">
+
+									<div class="row mb-4">
+										<div class="col">
+											<select id="financeBy" name="financeBy" class="form-control" tabindex="4">
+												<option value="">---  Finance Bank  ---</option>
+												<option th:each="bankName : ${financerBankNames}" th:value="${bankName}" th:text="${bankName}" th:selected="${lead.financer.bankName == bankName}" ></option>
+											</select>
+										</div>
+
+										<div class="col">
+											<label> 
+												<input type="hidden" id="isAgreementDone" name="isAgreementDone" /> 
+												<input type="checkbox" id="chkAgreementDone" th:checked="${lead.financer.agreementDone == 'YES'}" tabindex="5" /> 
+												Agreement Done ???
+											</label>
+										</div>
+									</div>
+
+									<div class="row mb-4">
+										<div class="col">
+											<input type="text" name="financeExecutiveName" th:value="${lead.financer.executiveName}" placeholder="Executive Name" class="form-control form-control-sm rounded-1" onkeyup="this.value = this.value.toUpperCase();" tabindex="6" />
+										</div>
+
+										<div class="col">
+											<input type="text" name="financeExecutiveContactNumber" th:value="${lead.financer.mobileNumber}" placeholder="Executive Number" class="form-control form-control-sm rounded-1" tabindex="7" maxlength="10" title="Please enter valid 10 digit number" pattern="^\d{10}$"/>
+										</div>
+									</div>
+
+									<hr style="border: 1px solid blue;">
+
+									<div class="row mb-4">
+										<div class="col">
+											<input type="text" id="loanDate" name="loanDate" th:value="${lead.loan.loanDate}" type="text" class="form-control form-control-sm rounded-1 datepicker" readonly="true"/>
+										</div>
+
+										<div class="col">
+											<input type="text" id="loanNumber" name="loanNumber" th:value="${lead.loan.loanNumber}" placeholder="Loan Number" class="form-control form-control-sm rounded-1" onkeyup="this.value = this.value.toUpperCase();" tabindex="8" />
+										</div>
+
+										<div class="col">
+											<input type="text" id="loanAmount" name="loanAmount" th:value="${lead.loan.loanAmount}" placeholder="Loan Amount" class="form-control form-control-sm rounded-1" tabindex="9" title="Please enter valid amount" />
+										</div>
+									</div>
+
+									<hr style="border: 1px solid blue;">
+
+									<div class="row mb-4">
+										<div class="col">
+											<input type="text" name="customerName" th:value="${lead.customer.name}" placeholder="Customer Name" class="form-control form-control-sm rounded-1" tabindex="10" onkeyup="this.value = this.value.toUpperCase();" required/>
+										</div>
+
+										<div class="col">
+											<input type="text" name="customerVillage" th:value="${lead.customer.village}" placeholder="Customer Village" class="form-control form-control-sm rounded-1" tabindex="13" onkeyup="this.value = this.value.toUpperCase();" required/>
+										</div>
+									</div>
+
+
+									<div class="row mb-4">
+										<div class="col">
+											<input type="text" name="customerContactNumber1" th:value="${lead.customer.mobileNumber1}" placeholder="Customer Primary Contact Number" class="form-control form-control-sm rounded-1" maxlength="10" title="Please enter valid 10 digit number" tabindex="11" title="Please enter valid 10 digit number" required pattern="^\d{10}$"/>
+										</div>
+
+										<div class="col">
+											<input type="text" name="customerTaluka" th:value="${lead.customer.taluka}" placeholder="Customer Taluka" class="form-control form-control-sm rounded-1" tabindex="14" onkeyup="this.value = this.value.toUpperCase();" required/>
+										</div>
+									</div>
+
+									<div class="row mb-4">
+										<div class="col">
+											<input type="text" name="customerContactNumber2" th:value="${lead.customer.mobileNumber2}" placeholder="Customer Secondary Contact Number" class="form-control form-control-sm rounded-1"maxlength="10" title="Please enter valid 10 digit number" tabindex="12" title="Please enter valid 10 digit number" pattern="^\d{10}$"/>
+										</div>
+
+										<div class="col">
+											<input type="text" name="customerDistrict" th:value="${lead.customer.district}" placeholder="Customer District" class="form-control form-control-sm rounded-1" tabindex="15" onkeyup="this.value = this.value.toUpperCase();" required/>
+										</div>
+									</div>
+
+									<hr style="border: 1px solid blue;">
+
+									<div class="row mb-4">
+										<div class="col">
+											<input type="text" name="vehicleName" th:value="${lead.vehicle.name}" placeholder="Vehicle Name" class="form-control form-control-sm rounded-1" tabindex="16" onkeyup="this.value = this.value.toUpperCase();" required/>
+										</div>
+
+										<div class="col">
+											<select name="vehicleCondition" class="form-control" tabindex="19">
+												<option th:value="'OLD'" th:text="OLD" th:selected="${lead.vehicle.condition == 'OLD'}" />
+												<option th:value="'NEW'" th:text="NEW" th:selected="${lead.vehicle.condition == 'NEW'}" />
+												<option th:value="'RC'" th:text="RC_LIMIT" th:selected="${lead.vehicle.condition == 'RC'}" />
+											</select>
+										</div>
+									</div>
+
+									<div class="row mb-4">
+										<div class="col">
+											<input type="text" th:value="${lead.vehicle.registrationNumber}" name="vehicleRegistarionNumber" placeholder="Vehicle Registration Number" class="form-control form-control-sm rounded-1" maxlength="10" tabindex="17" onkeyup="this.value = this.value.toUpperCase();" />
+										</div>
+
+										<div class="col">
+											<select name="vehicleType" class="form-control" tabindex="20">
+												<option th:value="'CAR'" th:text="CAR" th:selected="${lead.vehicle.type == 'CAR'}" />
+												<option th:value="'FES'" th:text="FES" th:selected="${lead.vehicle.type == 'FES'}" />
+												<option th:value="'CV'" th:text="CV" th:selected="${lead.vehicle.type == 'CV'}" />
+												<option th:value="'3W'" th:text="3W" th:selected="${lead.vehicle.type == '3W'}" />
+											</select>
+										</div>
+									</div>
+
+									<div class="row mb-4">
+										<div class="col">
+											<input type="text" name="vehicleManufacturYear" th:value="${lead.vehicle.manufactureYear}" placeholder="Vehicle Manufacture Year" class="form-control form-control-sm rounded-1" maxlength="4" title="Please enter valid 10 digit number" tabindex="18" required pattern="^\d{4}$" title="Please enter valid 4 digit" maxlength="4"/>
+										</div>
+
+										<div class="col">
+		                            			<input type="text" id="remark" name="remark" placeholder="Remark" class="form-control form-control-sm rounded-1" tabindex="21" onkeyup="this.value = this.value.toUpperCase();" />
+		                            	</div>
+									</div>
+									
+									<div class="row mb-6">
+										<div class="col text-center">
+												<button id="sbtvehicleform" name="Submit" value="Done"
+												type="Submit" th:text="'Update Lead'"
+												class="btn btn-success " tabindex="22" />
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							<!--/card-block-->
+						</div>
+						<!-- /form card login -->
+					</div>
+				</div>
+				<!--/row-->
+			</div>
+			
+			 &nbsp; &nbsp; 
+			
+			
+			<div class="row">
+				<div class="col-lg-9 mx-auto">
+					<table class="table table-bordered table-striped">
+					<thead class="thead-dark">
+						<tr>
+							<!-- <th scope="col">#</th> -->
+							<th scope="col">Remark Date</th>
+							<th scope="col">Remark</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- <tr>
+							<th scope="row">1</th>
+							<td class="col-md-1">Mark</td>
+							<td class="col-md-6">Mark</td>
+						</tr> -->
+						<tr th:each="remark : ${remarks}">
+            				<td th:text="${remark.date}"></td>
+            				<td th:text="${remark.remark}"></td>
+        				</tr>
+					</tbody>
+				</table>
+				
+				</div>
+			</div>
+			<!--/col-->
+		</div>
+		<!--/row-->
+	</form>
+	</div>
+	<!-- Vehicle loan page- ENDS -->
+	<th:block th:include="tail :: bodytail"></th:block>
+</body>
+
+<script type='text/javascript'>
+	jQuery(document).ready(
+			function() {
+				// Date-Picker Related Changes
+				var today = new Date();
+				const monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+						'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
+				
+				$('#inquirydate').datepicker({
+					format : 'dd-mmm-yyyy',
+					uiLibrary : 'bootstrap4',
+					maxDate : new Date()
+				});
+				
+				$('#loanDate').datepicker({
+					format : 'dd-mmm-yyyy',
+					uiLibrary : 'bootstrap4',
+					maxDate : new Date()
+				});
+				
+				$('#vehicleloanform').bind('submit', function(e) {
+					$('#sbtvehicleform').prop('disabled', true);
+				});
+			});
+
+	$("#chkAgreementDone").change(function() {
+		var ischecked = $(this).is(':checked');
+		if (ischecked) {
+			$('#isAgreementDone').attr('value', "YES");
+		} else {
+			$('#isAgreementDone').attr('value', "NO");
+		}
+	});
+	
+	$('#leadForm').on('submit', function() {
+		// value related to aggriment done ...
+		var ischecked = $("#chkAgreementDone").is(':checked');
+		if (ischecked) {
+			$('#isAgreementDone').attr('value', "YES");
+		} else {
+			$('#isAgreementDone').attr('value', "NO");
+		}
+		
+		var leadStatus = $("#leadstatus").val();
+		if(("FOLLOW_UP" == leadStatus || "SENCTIONED" == leadStatus ) && "" == $("#financeBy").val()){// if Lead is follow up than financer details are mandatory
+			
+			alert(leadStatus + " LEAD REQUIRES FINANCER DETAILS, PLEASE SELECT FINANCER !!!");
+			$("#financeBy").focus();
+			return false;
+			
+		}else if("SENCTIONED" == leadStatus && 
+				("" == $("#loanNumber").val() || "" == $("#loanAmount").val() || "0" == $("#loanAmount").val())){// if Lead is follow up than financer details are mandatory
+			
+			alert(leadStatus + " LEAD REUQIRES LOAN DETAILS, PLEASE UPDATE LOAN DETAILS !!!");
+			if("" == $("#loanNumber").val()){	
+				$("#loanNumber").focus();
+			}else {
+				$("#loanAmount").focus();
+			}
+			return false;
+		}else if("CANCELLED" != currentStatus && "CANCELLED" == leadStatus && "" == $("#remark").val()){
+			alert("PLEASE PUT APPROPRIATE REMARK BEFORE MAKING THIS LEAD 'CANCELLED' !!!");
+			$("#remark").focus();
+			return false;
+		}
+		
+		$('#sbtvehicleform').prop('disabled', true);
+	});
+</script>
+</html>

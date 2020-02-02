@@ -117,13 +117,13 @@ public class LoanServiceImpl implements LoanService {
 		storedProcedureQuery.registerStoredProcedureParameter("toDate", Date.class, ParameterMode.IN);
 		storedProcedureQuery.setParameter("fromDate", fromDate);
 		storedProcedureQuery.setParameter("toDate", toDate);
-		@SuppressWarnings("rawtypes")
+/*		@SuppressWarnings("rawtypes")
 		List resultList = storedProcedureQuery.getResultList();
-		List<LoanReportDTO> loanReportDTO = new ArrayList<>();
+*/		List<LoanReportDTO> loanReportDTO = new ArrayList<>();
 		return loanReportDTO;
 	}
 	
-	private void processToReportDTO(List resultList,List<LoanReportDTO> loanReportDTO){
+	/*private void processToReportDTO(List resultList,List<LoanReportDTO> loanReportDTO){
 		for(Object currentLoanRecord : resultList){
 			LoanReportDTO reportDTO = new LoanReportDTO();
 			Object[] data = (Object[]) currentLoanRecord;
@@ -148,6 +148,6 @@ public class LoanServiceImpl implements LoanService {
 			
 			
 			loanReportDTO.add(reportDTO);
-*/		}
-	}
+/		}/
+	}*/
 }
