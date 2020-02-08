@@ -82,7 +82,7 @@ public class LeadRepository {
 	}
 
 	public List<Lead> getLeadsBetweenDates(String fromDate, String toDate) {
-		return jdbcTemplate.query("select * from lead where STR_TO_DATE(INQUIRY_DATE,'%d-%b-%Y') >= STR_TO_DATE('"+fromDate+"','%d-%b-%Y') "
+		return jdbcTemplate.query("SELECT * FROM LEAD where STR_TO_DATE(INQUIRY_DATE,'%d-%b-%Y') >= STR_TO_DATE('"+fromDate+"','%d-%b-%Y') "
 				+ "and STR_TO_DATE(INQUIRY_DATE,'%d-%b-%Y') <= STR_TO_DATE('"+toDate+"','%d-%b-%Y')",new LeadRowMapper());
 	}
 }
